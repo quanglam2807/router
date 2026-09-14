@@ -1,5 +1,13 @@
 # @tanstack/router-core
 
+## 1.171.31
+
+### Patch Changes
+
+- [#8417](https://github.com/TanStack/router/pull/8417) [`bc80866`](https://github.com/TanStack/router/commit/bc80866f6d6eb3e6f152ee3682eb783c96403e83) - Speed up `deepEqual`: identical array elements no longer recurse, the exact comparison keeps a single key counter, and the redundant `typeof` early exit is gone. Equal numeric arrays compare ~70% faster and record comparisons 5–12% faster in the mixed-mode workloads that Link option stabilization and active-state checks produce, with a slightly smaller bundle. Behavior, including key enumeration and getter read order, is unchanged.
+
+- [#8418](https://github.com/TanStack/router/pull/8418) [`e561fa1`](https://github.com/TanStack/router/commit/e561fa1d7118e3d29267cc3b6ce1130d6581f387) - `deepEqual` now takes its flags as positional arguments — `deepEqual(a, b, partial?, explicitUndefined?)` — instead of an options object. The router's hot callers (Link option stabilization and active-state checks, `matchRoute`) no longer allocate an options object per comparison, and the comparator reads two booleans instead of a polymorphic object. `explicitUndefined` replaces `ignoreUndefined: false`. `deepEqual` is an internal helper; it stays exported for compatibility of two-argument calls.
+
 ## 1.171.30
 
 ### Patch Changes
